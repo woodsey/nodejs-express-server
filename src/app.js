@@ -1,19 +1,30 @@
+const path = require('path');
 const express = require('express');
 
 
+console.log(__dirname);
+console.log(path.join(__dirname, '../public'));
+
+
 const app = express();
+const publicPath = path.join(__dirname, '../public');
+app.set('view engine', 'hbs'); // sets up handlebars with express
+app.use(express.static(publicPath));
+
 
 app.get('', (req, res) => {
-    res.send('Hello Express!')
+    res.render('index')
 });
 
+/*
 app.get('/help', (req, res) => {
-    res.send('Help Page')
+    res.redirect('/help.html');
 });
 
 app.get('/about', (req, res) => {
-    res.send('<h1>About Page</h1>')
+    res.redirect('/about.html');
 });
+*/
 
 app.get('/weather', (req, res) => {
     const data = {
