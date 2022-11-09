@@ -12,19 +12,10 @@ fetch('http://puzzle.mead.io/puzzle').then((response) => {
 });
 */
 
-if (false) {
-    fetch('http://localhost:3000/weather?address=Southampton').then((response) => {
-        response.json().then((data) => {
-            if (data.error) {
-                console.log(data.error)
-            } else {
-                console.log(data.location)
-                console.log(data.forecast)
-            }
-        })
-    })
-}
+const messageOne = document.querySelector('#message-1');
+const messageTwo = document.querySelector('#message-2');
 
+const doLive = true;
 
 const weatherForm = document.querySelector('form');
 const search = document.querySelector('input');
@@ -32,4 +23,21 @@ weatherForm.addEventListener('submit', (e) => {
     e.preventDefault()
     const location = search.value;
     console.log('value: ' + location)
+
+    messageOne.textContent = "";
+    messageTwo.textContent = "";
+
+    if (doLive) {
+        fetch('http://localhost:3000/weather?address=' + location).then((response) => {
+            response.json().then((data) => {
+                if (data.error) {
+                    messageOne.textContent = "There was an error: " + data.error
+                } else {
+                    messageOne.textContent = "Location: " + data.location;
+                    messageTwo.textContent = "Forecast: " + data.forecast;
+                }
+            })
+        })
+    }
+
 });
