@@ -5,7 +5,6 @@
     <title>Weather App</title>
     <link rel="icon" href="/img/weather.png" />
     <link rel="stylesheet" href="/css/style.css" />
-    <script src="/js/app.js"></script>
 </head>
 
 <body>
@@ -13,9 +12,17 @@
         {{>header}}
         <img src="/img/twoods.jpeg" class="portrait" />
 
-        <p>{{title}}</p>
+        <form>
+            <input placeholder="search location..." />
+            <button>Search</button>
+        </form>
+
     </div>
+
+    <p>{{title}}</p>
+
     {{>footer}}
+    <script src="/js/app.js"></script>
 </body>
 
 </html>
