@@ -33,11 +33,10 @@ weatherForm.addEventListener('submit', (e) => {
                 if (data.error) {
                     messageOne.textContent = "There was an error: " + data.error
                 } else {
-                    messageOne.textContent = "Location: " + data.location;
-                    messageTwo.textContent = "Forecast: " + data.forecast;
+                    messageOne.textContent = "Location: " + data.forecast.name + ", " + data.forecast.region + ", " + data.forecast.country;
+                    messageTwo.textContent = "Forecast: It is currently " + data.forecast.temperature + " degrees out. There is " + data.forecast.precip + "% chance of rain. Wind speed is " + data.forecast.wind_speed + ", humidity is " + data.forecast.humidity + " and visibility is " + data.forecast.visibility;
                 }
             })
         })
     }
-
 });

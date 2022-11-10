@@ -12,6 +12,7 @@ console.log(path.join(__dirname, '../public'));
 const app = express();
 const port = process.env.PORT || 3000;  // either get the port on heroku or default to 3000 for local
 
+
 // define paths for express config
 const publicPath = path.join(__dirname, '../public');
 const viewsPath = path.join(__dirname, '../templates/views');
@@ -46,21 +47,26 @@ app.get('/about', (req, res) => {
 
 
 app.get('/weather', (req, res) => {
+    console.log("Getting weather info...");
     if (!req.query.address) {
         return res.send({
             error: 'Please provide an address'
         })
     } else {
         const location = req.query.address;
+        console.log("1: " + location);
         geocode(location, (error, geoData) => {
             if (error) {
+                console.log("error on geocode");
                 return res.send({
                     error: error
                 });
             }
 
+
             forecast(geoData.latitude + ',' + geoData.longitude, (error, forecastData) => {
                 if (error) {
+                    console.log("error on forecast");
                     return res.send({
                         error: error
                     });
@@ -71,10 +77,8 @@ app.get('/weather', (req, res) => {
                     location: geoData.longitude + ' - ' + geoData.latitude,
                     address: location
                 }
+                console.log(data);
                 return res.send(data);
-
-                console.log(chalk.yellow('Location: ' + geoData.location + ' = Lat: ' + geoData.latitude + ' - Long: ' + geoData.longitude));
-                console.log(chalk.blue(forecastData));
             });
         });
 
